@@ -1,0 +1,6 @@
+chatafisha_nft_marketplace
+scrap ship clinic october boil dream wrestle lens pencil brief twenty setup
+
+1/ cargo build --target wasm32-unknown-unknown --release
+2/ near deploy --wasmFile target/wasm32-unknown-unknown/release/marketplace.wasm --accountId chatafisha_nft_marketplace.testnet
+3/ near call chatafisha_nft_marketplace.testnet new --accountId chatafisha_nft_marketplace.testnet
