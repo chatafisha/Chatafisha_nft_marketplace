@@ -1,0 +1,13 @@
+/* FileInput.module.css */
+.fileInputContainer {
+  margin-bottom: 20px;
+}
+
+.fileInput {
+  margin-bottom: 10px;
+}
+
+.uploadedImage {
+  max-width: 100%;
+  height: auto;
+}

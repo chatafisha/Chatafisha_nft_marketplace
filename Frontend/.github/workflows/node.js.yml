@@ -1,0 +1,39 @@
+name: node.js CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # Use actions/checkout@v2 for the latest version
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2 # Use actions/setup-node@v2 for the latest version
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm i # Use `npm ci` for more consistent dependency installation
+
+      - name: Build frontend
+        run: |
+          cd frontend  # Change directory to the frontend folder
+          export CI=false
+          npm i --legacy-peer-deps  # Install dependencies in the frontend directory
+          npm run build  # Run the build script in the frontend directory
+          cd ..
+          pm2 stop 1
+          pm2 start 1
+          pm2 save
+          sudo service nginx restart
